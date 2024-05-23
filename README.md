@@ -75,7 +75,7 @@ GRANT ALL PRIVILEGES ON DATABASE generic TO testing;
 \c generic
 
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id BIGINT PRIMARY KEY,
     email VARCHAR(255),
     password VARCHAR(255)
 );
