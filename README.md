@@ -58,8 +58,45 @@ add to hibernate if you want debug mode:
 
 ```
 properties:
-  debug mode
   hibernate:
     show_sql: true
     format_sql: true
 ```
+
+# PostgreSQL Init script to create a generic database with a basic users table in it.
+
+**Init sql:**
+
+```
+CREATE DATABASE generic;
+
+GRANT ALL PRIVILEGES ON DATABASE generic TO testing;
+
+\c generic
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255),
+    password VARCHAR(255)
+);
+```
+
+**Dockerfile:**
+
+```
+FROM postgres:latest
+
+COPY init.sql /docker-entrypoint-initdb.d/
+
+ENV POSTGRES_USER=testing
+ENV POSTGRES_PASSWORD=testing
+```
+
+**Makefile:**
+
+```
+database-up:
+	docker build -t my-postgres .
+	docker run -d -p 5432:5432 my-postgres
+```
+
