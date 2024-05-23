@@ -13,15 +13,21 @@ I want to store here some things about software that I personally found useful.
 
 **create rsa key pair:**
 
+```
 openssl genrsa -out keypair.pem 2048
+```
 
 **extract public key:**
 
+```
 openssl rsa -in keypair.pem -pubout -out public.pem
+```
 
 **create private key in PKCS#8 format:**
 
+```
 openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in keypair.pem -out private.pem
+```
 
 **if you want to use this keys in spring boot app: (yaml properties)**
 
