@@ -31,6 +31,19 @@ openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in keypair.pem -out priv
 
 **if you want to use this keys in spring boot app: (yaml properties)**
 
+You should create the RSAKeyRecord class:
+
+```
+@ConfigurationProperties(prefix = "jwt")
+public record RSAKeyRecord (RSAPublicKey rsaPublicKey, RSAPrivateKey rsaPrivateKey){
+}
+```
+
+And append it to your main class:
+
+```
+@EnableConfigurationProperties(RSAKeyRecord.class)
+```
 
 ```
 jwt:
