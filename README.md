@@ -8,6 +8,11 @@ I want to store here some things about software that I personally found useful.
 * Properties for spring boot projects.
 * Basic docker scripts
 
+# Script to install .deb packages in ubuntu (just to remember)
+
+```
+dpkg -i archivo.deb
+```
 
 # RSA generate private and public key.
 
