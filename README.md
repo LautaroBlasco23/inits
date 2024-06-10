@@ -118,3 +118,16 @@ database-up:
 	docker run -d -p 5432:5432 my-postgres
 ```
 
+# Cosas interesantes de SQL
+
+Script para crear una tabla que une a comentarios con usuarios en una relacion many to many. y tiene como primary key la combinacion de ambos ids, para evitar que se repitan.
+
+```
+CREATE TABLE comment_likes (
+  comment_id BIGINT NOT NULL,
+  user_id BIGINT NOT NULL,
+  PRIMARY KEY (comment_id, user_id),
+  FOREIGN KEY (comment_id) REFERENCES comments(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users_profiles(id) ON DELETE CASCADE
+);
+```
