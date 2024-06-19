@@ -131,3 +131,28 @@ CREATE TABLE comment_likes (
   FOREIGN KEY (user_id) REFERENCES users_profiles(id) ON DELETE CASCADE
 );
 ```
+
+# Entidades en JPA con tablas de relaciones
+
+```
+    // ejemplo usando @JoinTable y @ManyToMany, para unir usuarios y las rutinas que están haciendo en ese momento.
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "users_routines",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "routine_id")
+    )
+    private List<RoutineEntity> routines;
+
+    // Y otro ejemplo de mi tabla de users:
+    @ManyToMany
+    @JoinTable(
+        name = "users_follows",
+        joinColumns = @JoinColumn(name = "followed"),
+        inverseJoinColumns = @JoinColumn(name = "follower")
+    )
+    private Set<UserEntity> followers;
+
+    @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
+    private Set<UserEntity> following;
+```
